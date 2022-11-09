@@ -1,6 +1,6 @@
 ﻿namespace CommandModel.Event
 {
-    public class SlotWasBooked
+    public struct SlotWasBooked: IEvent
     {
         public readonly int SlotId;
         public readonly int PatientId;

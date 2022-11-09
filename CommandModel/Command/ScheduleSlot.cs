@@ -2,7 +2,7 @@
 
 namespace CommandModel.Command
 {
-    public class ScheduleSlot
+    public struct ScheduleSlot: ICommand
     {
         public readonly int DoctorId;
         public readonly DateTime StartDateTime;

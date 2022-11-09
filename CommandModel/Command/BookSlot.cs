@@ -2,7 +2,7 @@
 
 namespace CommandModel.Command
 {
-    public class BookSlot
+    public struct BookSlot: ICommand
     {
         public readonly int PatientId;
         public readonly int SlotId;

@@ -2,7 +2,7 @@
 
 namespace CommandModel.Event
 {
-    public class SlotWasScheduled
+    public struct SlotWasScheduled: IEvent
     {
         public readonly DateTime StartDateTime;
         public readonly DateTime EndDateTime;
