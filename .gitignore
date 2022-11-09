@@ -3,3 +3,10 @@
 ################################################################################
 
 /tests/obj
+/CommandModel/obj
+/CommandModel/bin/Debug/netstandard2.0
+/cqrs-es-exercise-2/bin/Debug/netcoreapp3.1
+/Store/bin/Debug/netstandard2.0
+/Store/obj/Debug/netstandard2.0
+/Store/obj
+/tests/bin/Debug/netcoreapp3.1

@@ -7,7 +7,6 @@ namespace cqrs_es_exercise_2
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine("werkt dit?");
         }
     }
 }

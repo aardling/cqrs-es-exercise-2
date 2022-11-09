@@ -10,5 +10,10 @@
             SlotId = slotId;
             PatientId = patientId;
         }
+
+        public int GetStreamId()
+        {
+            return SlotId;
+        }
     }
 }

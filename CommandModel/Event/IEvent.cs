@@ -1,4 +1,7 @@
 ﻿namespace CommandModel.Event
 {
-    public interface IEvent { }
+    public interface IEvent
+    {
+        int GetStreamId();
+    }
 }

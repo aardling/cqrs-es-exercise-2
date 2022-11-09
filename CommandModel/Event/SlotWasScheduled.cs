@@ -16,5 +16,10 @@ namespace CommandModel.Event
             StartDateTime = start;
             EndDateTime = end;
         }
+
+        public int GetStreamId()
+        {
+            return SlotId;
+        }
     }
 }
