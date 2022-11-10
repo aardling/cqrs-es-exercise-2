@@ -16,7 +16,7 @@ namespace Tests
         public void Setup()
         {
             _store = new EventStore();
-            _handler = new BookSlotCommandHandler(_store);
+            _handler = new BookSlotCommandHandler(new SlotRepository(_store));
         }
 
         [Test]

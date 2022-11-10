@@ -8,22 +8,18 @@ namespace DoctorBooker.CommandModel
 {
     public class BookSlotCommandHandler : ICommandHandler<BookSlot>
     {
-        private EventStore _store;
+        private SlotRepository _slotRepository;
 
-        public BookSlotCommandHandler(EventStore store)
+        public BookSlotCommandHandler(SlotRepository slotRepository)
         {
-            _store = store;
+            _slotRepository = slotRepository;
         }
 
         public void Handle(BookSlot command)
         {
-
-            var events = _store.GetByStreamId(command.SlotId);
-            var slot = Slot.FromHistory(events);
-
+            var slot = _slotRepository.FindById(command.SlotId);
             slot.Book(command.PatientId);
-
-            _store.AddEvents(slot.GetRecordedEvents());
+            _slotRepository.Save(slot);
         }
     }
 }
