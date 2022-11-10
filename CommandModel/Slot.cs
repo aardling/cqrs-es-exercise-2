@@ -25,21 +25,31 @@ namespace CommandModel
 
         public static Slot FromHistory(List<IEvent> history)
         {
-            //rebuild Slot from history
-            // slotId = 
-            // scheduled = true
-            // booked = true
+            var slot = new Slot();
 
-            return new Slot();
+            foreach (var @event in history)
+            {
+                switch (@event)
+                {
+                    case SlotWasScheduled slotWasScheduled:
+                        slot._isScheduled = true;
+                        slot._slotId = slotWasScheduled.SlotId;
+                        break;
+                }
+            }
+
+            return slot;
         }
 
         public void Book(int patientId)
         {
-            if(_slotId == 0) {
-                //throw
+            if(!_isScheduled)
+            {
+                throw new Exception("not scheduled");
             }
             
-            if(_isBooked) {
+            if(_isBooked)
+            {
                 //throw
             }
 
