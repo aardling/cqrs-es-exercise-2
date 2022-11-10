@@ -7,25 +7,18 @@ namespace DoctorBooker.CommandModel
     public class ScheduleSlotCommandHandler : ICommandHandler<ScheduleSlot>
     {
 
-        private EventStore _store;
+        private SlotRepository _slotRepository;
 
-        public ScheduleSlotCommandHandler(EventStore store)
+        public ScheduleSlotCommandHandler(SlotRepository slotRepository)
         {
-            _store = store;
+            _slotRepository = slotRepository;
         }
 
         public void Handle(ScheduleSlot command)
         {
-            //1. identify stream/aggregate/consistency boundary
-            //2. fetch history
-            //3. build up state from history 
-            //4. enforce constraints -> or throw exceptions
-
-            //5. create event(s)
-            var newEvent = new SlotWasScheduled(1, command.DoctorId, command.StartDateTime, command.EndDateTime);
-
-            //6. append events to history
-            _store.AddEvent(newEvent);
+            var newSlotId = 1; //should be autoincrement, or generated, or ...
+            var slot = Slot.Schedule(newSlotId, command.DoctorId, command.StartDateTime, command.EndDateTime);
+            _slotRepository.Save(slot); //@todo enforce not making the same slot (id) twice
         }
     }
 }

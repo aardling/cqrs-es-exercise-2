@@ -59,6 +59,13 @@ namespace DoctorBooker.CommandModel
             return slot;
         }
 
+        public static Slot Schedule(int slotId, int doctorId, DateTime startTime, DateTime endTime)
+        {
+            var slot = new Slot();
+            slot.RecordThat(new SlotWasScheduled(slotId, doctorId, startTime, endTime));
+            return slot;
+        }
+
         public void Book(int patientId)
         {
             if (!_isScheduled)
