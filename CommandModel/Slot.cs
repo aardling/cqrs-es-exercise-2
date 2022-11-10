@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CommandModel.Exceptions;
 
 namespace CommandModel
 {
     public class Slot
     {
-        List<IEvent> _recordedEvents = new List<IEvent>();
+        List<IEvent> _recordedEvents;
 
         bool _isBooked = false;
         bool _isScheduled = false;
@@ -15,12 +16,36 @@ namespace CommandModel
 
         private Slot()
         {
-        
+            _recordedEvents = new List<IEvent>();
         }
 
         public List<IEvent> GetRecordedEvents()
         {
             return _recordedEvents;
+        }
+
+        private void When(SlotWasScheduled slotWasScheduled)
+        {
+            _isScheduled = true;
+            _slotId = slotWasScheduled.SlotId;
+        }
+
+        private void When(SlotWasBooked slotWasBooked)
+        {
+            _isBooked = true;
+        }
+
+        private void When(IEvent @event)
+        {
+            switch (@event)
+            {
+                case SlotWasScheduled slotWasScheduled:
+                    When(slotWasScheduled);
+                    break;
+                case SlotWasBooked slotWasBooked:
+                    When(slotWasBooked);
+                    break;
+            }
         }
 
         public static Slot FromHistory(List<IEvent> history)
@@ -29,13 +54,7 @@ namespace CommandModel
 
             foreach (var @event in history)
             {
-                switch (@event)
-                {
-                    case SlotWasScheduled slotWasScheduled:
-                        slot._isScheduled = true;
-                        slot._slotId = slotWasScheduled.SlotId;
-                        break;
-                }
+                slot.When(@event);
             }
 
             return slot;
@@ -45,15 +64,21 @@ namespace CommandModel
         {
             if(!_isScheduled)
             {
-                throw new Exception("not scheduled");
+                throw new SlotNotScheduledException();
             }
             
             if(_isBooked)
             {
-                //throw
+                throw new Exception("already booked");
             }
 
-            _recordedEvents.Add(new SlotWasBooked(_slotId, patientId));
+            RecordThat(new SlotWasBooked(_slotId, patientId));   
+        }
+
+        private void RecordThat(IEvent newEvent)
+        {
+            _recordedEvents.Add(newEvent);
+            When(newEvent);
         }
     }
 }

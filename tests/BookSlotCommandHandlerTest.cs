@@ -1,6 +1,7 @@
 ﻿using CommandModel;
 using CommandModel.Command;
 using CommandModel.Event;
+using CommandModel.Exceptions;
 using NUnit.Framework;
 using Store;
 using System;
@@ -38,12 +39,25 @@ namespace Tests
         {
             var slotId = 1;
             var patientId = 1;
+
+            When(new BookSlot(slotId, patientId));
+            Then<SlotNotScheduledException>();
+        }
+
+        [Test]
+        public void ItShouldNotBookAnAlreadyBookedSlot()
+        {
+            var slotId = 1;
+            var patientId = 1;
             var doctorId = 1;
             var start = DateTime.Now;
             var end = start.AddMinutes(20);
 
-            //Given(new SlotWasScheduled(slotId, doctorId, start, end));
-            When(new BookSlot(slotId, patientId));
+            var otherPatientId = 2;
+
+            Given(new SlotWasScheduled(slotId, doctorId, start, end));
+            Given(new SlotWasBooked(slotId, patientId));
+            When(new BookSlot(slotId, otherPatientId));
             Then<Exception>();
         }
     }
