@@ -75,6 +75,21 @@ namespace CommandModel
             RecordThat(new SlotWasBooked(_slotId, patientId));   
         }
 
+        public void Cancel()
+        {
+            if (!_isScheduled)
+            {
+                throw new SlotNotScheduledException();
+            }
+
+            if (! _isBooked)
+            {
+                throw new Exception("not booked");
+            }
+
+            RecordThat(new SlotWasCancelled(_slotId));
+        }
+
         private void RecordThat(IEvent newEvent)
         {
             _recordedEvents.Add(newEvent);

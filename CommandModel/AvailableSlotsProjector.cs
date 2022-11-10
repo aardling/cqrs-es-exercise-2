@@ -7,10 +7,12 @@ using System.Linq;
 public class AvailableSlotsProjector: IEventListener
 {
     private List<AvailableSlot> _availableSlots;
+    private List<AvailableSlot> _bookedSlots;
 
     public AvailableSlotsProjector()
     {
         _availableSlots = new List<AvailableSlot>();
+        _bookedSlots = new List<AvailableSlot>();
     }
 
     public void When(IEvent evt)
@@ -22,6 +24,10 @@ public class AvailableSlotsProjector: IEventListener
         if (evt is SlotWasBooked bookedEvent)
         {
             When(bookedEvent);
+        }
+        if (evt is SlotWasCancelled canceledEvent)
+        {
+            When(canceledEvent);
         }
     }
 
@@ -42,6 +48,17 @@ public class AvailableSlotsProjector: IEventListener
         if(slot != null)
         {
             _availableSlots.Remove(slot);
+            _bookedSlots.Add(slot);
+        }
+    }
+
+    public void When(SlotWasCancelled evt)
+    {
+        var slot = _bookedSlots.SingleOrDefault(x => x.SlotId == evt.SlotId);
+        if (slot != null)
+        {
+            _bookedSlots.Remove(slot);
+            _availableSlots.Add(slot);
         }
     }
 

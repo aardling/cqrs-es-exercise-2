@@ -67,9 +67,9 @@ namespace Tests
 
             _store.AddEvent(new SlotWasScheduled(slotId, doctorId, start, end));
             _store.AddEvent(new SlotWasBooked(slotId, patientId));
-            //_store.AddEvent(new SlotWasCancelled(){});
+            _store.AddEvent(new SlotWasCancelled(slotId));
 
-            var slots = _projector.GetAllAvailableSlotsForDay(DateTime.Now);
+            var slots = _projector.GetAllAvailableSlotsForDay(start);
             Assert.AreEqual(1, slots.Count);
         }
     }
