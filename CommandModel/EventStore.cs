@@ -16,6 +16,14 @@ namespace Store
             _newEvents.Add(newEvent);            
         }
 
+        public void AddEvents(List<IEvent> events)
+        {
+            foreach (var @event in events)
+            {
+                AddEvent(@event);
+            }
+        }
+
         public List<IEvent> GetByStreamId(int streamId)
         {
             return _historicalEvents.Concat(_newEvents).Where(x => x.GetStreamId() == streamId).ToList();

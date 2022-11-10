@@ -20,13 +20,11 @@ namespace CommandModel
         {
             
             var events = _store.GetByStreamId(command.SlotId);
-            var slot = Slot.fromHistory(events);
-            // var slot = slotRepo.findBySlotId(command.slotId);
+            var slot = Slot.FromHistory(events);
 
-            slot.book(command.patientId);
+            slot.Book(command.PatientId);
 
-            //repo.save(slot)
-            _store.AddEvents(slot.getRecordedEvent());
+            _store.AddEvents(slot.GetRecordedEvents());
         }
     }
 }

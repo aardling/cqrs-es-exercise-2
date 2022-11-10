@@ -18,14 +18,19 @@ namespace CommandModel
         
         }
 
-        public Slot FromHistory(List<IEvent> history)
+        public List<IEvent> GetRecordedEvents()
+        {
+            return _recordedEvents;
+        }
+
+        public static Slot FromHistory(List<IEvent> history)
         {
             //rebuild Slot from history
             // slotId = 
             // scheduled = true
             // booked = true
 
-            return null;
+            return new Slot();
         }
 
         public void Book(int patientId)
@@ -38,7 +43,7 @@ namespace CommandModel
                 //throw
             }
 
-            _recordedEvents.Add(new SlotWasBooked(_slotId, patientId))
+            _recordedEvents.Add(new SlotWasBooked(_slotId, patientId));
         }
     }
 }
