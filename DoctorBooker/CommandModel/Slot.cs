@@ -12,6 +12,7 @@ namespace DoctorBooker.CommandModel
         bool _isBooked = false;
         bool _isScheduled = false;
         int _slotId;
+        int? _patientId;
 
         private Slot()
         {
@@ -32,6 +33,13 @@ namespace DoctorBooker.CommandModel
         private void When(SlotWasBooked slotWasBooked)
         {
             _isBooked = true;
+            _patientId = slotWasBooked.PatientId;
+        }
+
+        private void When(SlotWasCancelled slotWasCancelled)
+        {
+            _isBooked = false;
+            _patientId = null;
         }
 
         private void When(IEvent @event)
@@ -43,6 +51,9 @@ namespace DoctorBooker.CommandModel
                     break;
                 case SlotWasBooked slotWasBooked:
                     When(slotWasBooked);
+                    break;
+                case SlotWasCancelled slotWasCancelled:
+                    When(slotWasCancelled);
                     break;
             }
         }
@@ -81,7 +92,7 @@ namespace DoctorBooker.CommandModel
             RecordThat(new SlotWasBooked(_slotId, patientId));
         }
 
-        public void Cancel()
+        public void Cancel(int patientId)
         {
             if (!_isScheduled)
             {
@@ -93,7 +104,12 @@ namespace DoctorBooker.CommandModel
                 throw new Exception("not booked");
             }
 
-            RecordThat(new SlotWasCancelled(_slotId));
+            if(_patientId != patientId)
+            {
+                throw new Exception("Cannot cancel someone else's slot");
+            }
+
+            RecordThat(new SlotWasCancelled(_slotId, patientId));
         }
 
         private void RecordThat(IEvent newEvent)
