@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace CommandModel.Exceptions
+namespace DoctorBooker.CommandModel
 {
     public class SlotNotScheduledException : Exception
     {
-        
+
     }
 }

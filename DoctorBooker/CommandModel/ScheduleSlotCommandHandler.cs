@@ -1,9 +1,8 @@
-﻿using CommandModel.Command;
-using CommandModel.Event;
-using Store;
+﻿using DoctorBooker.Event;
+using DoctorBooker.Infrastructure;
 using System;
 
-namespace CommandModel
+namespace DoctorBooker.CommandModel
 {
     public class ScheduleSlotCommandHandler : ICommandHandler<ScheduleSlot>
     {

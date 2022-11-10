@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommandModel
+namespace DoctorBooker.QueryModel
 {
     public class AvailableSlot
     {

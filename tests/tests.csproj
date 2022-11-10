@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CommandModel\CommandModel.csproj" />
+    <ProjectReference Include="..\DoctorBooker\DoctorBooker.csproj" />
   </ItemGroup>
 
 </Project>

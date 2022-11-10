@@ -1,8 +1,9 @@
 ﻿using System;
+using DoctorBooker.Infrastructure;
 
-namespace CommandModel.Command
+namespace DoctorBooker.CommandModel
 {
-    public struct ScheduleSlot: ICommand
+    public struct ScheduleSlot : ICommand
     {
         public readonly int DoctorId;
         public readonly DateTime StartDateTime;

@@ -1,4 +1,6 @@
-﻿namespace CommandModel.Event
+﻿using DoctorBooker.Infrastructure;
+
+namespace DoctorBooker.Event
 {
     public struct SlotWasBooked: IEvent
     {

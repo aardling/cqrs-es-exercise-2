@@ -1,17 +1,15 @@
-﻿using CommandModel.Event;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CommandModel;
 
-namespace Store
+namespace DoctorBooker.Infrastructure
 {
     public class EventStore
     {
         private List<IEvent> _historicalEvents = new List<IEvent>();
         private List<IEvent> _newEvents = new List<IEvent>();
-        
+
         private List<IEventListener> _subscriptions = new List<IEventListener>();
 
 
@@ -19,10 +17,10 @@ namespace Store
         {
             _newEvents.Add(newEvent);
 
-            foreach(var subscriber in _subscriptions)
+            foreach (var subscriber in _subscriptions)
             {
                 subscriber.When(newEvent);
-            }            
+            }
         }
 
         public void AddEvents(List<IEvent> events)

@@ -1,8 +1,9 @@
 ﻿using System;
+using DoctorBooker.Infrastructure;
 
-namespace CommandModel.Command
+namespace DoctorBooker.CommandModel
 {
-    public struct BookSlot: ICommand
+    public struct BookSlot : ICommand
     {
         public readonly int PatientId;
         public readonly int SlotId;

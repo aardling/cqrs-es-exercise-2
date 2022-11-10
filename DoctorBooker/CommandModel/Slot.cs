@@ -1,10 +1,9 @@
-﻿using CommandModel.Event;
+﻿using DoctorBooker.Event;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using CommandModel.Exceptions;
+using DoctorBooker.Infrastructure;
 
-namespace CommandModel
+namespace DoctorBooker.CommandModel
 {
     public class Slot
     {
@@ -62,17 +61,17 @@ namespace CommandModel
 
         public void Book(int patientId)
         {
-            if(!_isScheduled)
+            if (!_isScheduled)
             {
                 throw new SlotNotScheduledException();
             }
-            
-            if(_isBooked)
+
+            if (_isBooked)
             {
                 throw new Exception("already booked");
             }
 
-            RecordThat(new SlotWasBooked(_slotId, patientId));   
+            RecordThat(new SlotWasBooked(_slotId, patientId));
         }
 
         public void Cancel()
@@ -82,7 +81,7 @@ namespace CommandModel
                 throw new SlotNotScheduledException();
             }
 
-            if (! _isBooked)
+            if (!_isBooked)
             {
                 throw new Exception("not booked");
             }

@@ -1,4 +1,4 @@
-﻿namespace CommandModel.Event
+﻿namespace DoctorBooker.Infrastructure
 {
     public interface IEvent
     {

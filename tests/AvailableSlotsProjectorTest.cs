@@ -1,6 +1,7 @@
-using CommandModel.Event;
+using DoctorBooker.Event;
+using DoctorBooker.Infrastructure;
+using DoctorBooker.QueryModel;
 using NUnit.Framework;
-using Store;
 using System;
 
 namespace Tests

@@ -1,8 +1,8 @@
-using CommandModel;
-using CommandModel.Command;
-using CommandModel.Event;
+using DoctorBooker;
+using DoctorBooker.CommandModel;
+using DoctorBooker.Event;
+using DoctorBooker.Infrastructure;
 using NUnit.Framework;
-using Store;
 using System;
 using System.Collections.Generic;
 

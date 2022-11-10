@@ -1,6 +1,4 @@
-using CommandModel.Event;
-
-namespace CommandModel
+namespace DoctorBooker.Infrastructure
 {
     public interface IEventListener
     {
